@@ -13,7 +13,7 @@ and drop-off  contains the date and time for each trip respectively which are ab
 
 # Demand dataset
 We created a demand dataset based on this definition for each timestamp and LocationID:
-![]()
+![](https://github.com/RozhanMk/Taxi-demand-prediction/blob/main/images/demand.png)
 
 # Feature Selection
 We added these features to the demand dataset:
@@ -29,11 +29,11 @@ We added these features to the demand dataset:
 
 # Base Model
 We transformed a time series problem into a supervised learning problem. So we can use XGBoost.
-![]()
+![](https://github.com/RozhanMk/Taxi-demand-prediction/blob/main/images/xgboost.png)
 
 # Final Model
 We used simple deep learning with dense layers and we got the best result:
-![]()
+![](https://github.com/RozhanMk/Taxi-demand-prediction/blob/main/images/deep.png)
 
 # How to run
 1. clone the repo:
