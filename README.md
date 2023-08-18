@@ -36,6 +36,7 @@ We used simple deep learning with dense layers and we got the best result:
 ![](https://github.com/RozhanMk/Taxi-demand-prediction/blob/main/images/deep.png)
 
 # How to run
+Before you run this API, you must get your API key from https://www.visualcrossing.com/weather/weather-data-services and put it in [weather API file](https://github.com/RozhanMk/Taxi-demand-prediction/blob/main/Deploy/api/MLpipline/weather/weather.py).
 1. clone the repo:
  ```
    git clone https://github.com/RozhanMk/Taxi-demand-prediction
