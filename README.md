@@ -4,7 +4,7 @@ in the future (for any time interval). As part of this plan, the team seeks to i
 drivers in those locations. Incentivizing drivers is a marketing initiative, and predicting demand during different time frames is crucial for implementing this 
 process. 
 
-To understand the general idea check our [presentation](https://github.com/RozhanMk/Taxi-demand-prediction/blob/main/Presentation/Demand%20Prediction.pdf)
+**To understand the general idea check our [presentation](https://github.com/RozhanMk/Taxi-demand-prediction/blob/main/Presentation/Demand%20Prediction.pdf)**
 
 # Dataset
 [TLC NYC dataset](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page) contains trip data about 12,672,737 trips which are made between 263 different zones in NYC. The trip records include fields capturing pick-up and 
