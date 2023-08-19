@@ -41,6 +41,8 @@ class UploadViewSet(ViewSet):
         file = serializer.validated_data['file']
         if timestamp != 3:
             return Response("Please only use 3 as timestamp!")
+        if iteration <= 0 or iteration >= 9:
+            return Response("Please use a number in range 1-8 for iteration!")
         
         # Read a Parquet file (columnar storage format)
         df_input = pd.read_parquet(file)
@@ -49,7 +51,7 @@ class UploadViewSet(ViewSet):
         columns = df_input.columns.to_list()
         for column in columns:
             if column not in self.ACCEPTED_COLUMNS:
-                return Response("dataset should contains columns from yellow taxi trip records.")
+                return Response("dataset should contains columns only from yellow taxi trip records.")
         
         # get xgboost prediction based on input dataset and timestamp
         if model_name == "xgboost" or model_name == "Xgboost":

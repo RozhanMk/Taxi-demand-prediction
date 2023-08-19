@@ -10,3 +10,4 @@ pyyaml
 requests
 django-cors-headers
 xgboost
+tensorflow
