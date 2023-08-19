@@ -5,11 +5,11 @@ from rest_framework.viewsets import ViewSet
 import pandas as pd
 from .MLpipline import create_demand
 from rest_framework.views import APIView
+from django.template.response import TemplateResponse
 
 class PlotAPIView(APIView):
     def get(self, request):
-        file_path = 'plot.png'  # Replace with the actual file path
-        return Response({'image_url': request.build_absolute_uri(file_path)})
+        return TemplateResponse(request, "map.html")
 
 """
 get model name, timestamp, iteration and batch file (from TLC nyc dataset) that contains info from yellow taxi in nyc.
@@ -24,7 +24,7 @@ class UploadViewSet(ViewSet):
     
 
     def list(self, request):
-        return Response("WELCOME TO TAXI DEMAND PREDICTION API! Please only use 3 as timestamp. choose 'xgboost' or 'deep' as Model")
+        return Response("WELCOME TO TAXI DEMAND PREDICTION API! Please upload file from TLC NYC dataset for prediction.")
 
     def upload(self, request):
         # Initialize a serializer with incoming data
@@ -39,10 +39,6 @@ class UploadViewSet(ViewSet):
         model_name = serializer.validated_data['model']
         iteration = serializer.validated_data['iteration']
         file = serializer.validated_data['file']
-        if timestamp != 3:
-            return Response("Please only use 3 as timestamp!")
-        if iteration <= 0 or iteration >= 9:
-            return Response("Please use a number in range 1-8 for iteration!")
         
         # Read a Parquet file (columnar storage format)
         df_input = pd.read_parquet(file)
@@ -54,14 +50,17 @@ class UploadViewSet(ViewSet):
                 return Response("dataset should contains columns only from yellow taxi trip records.")
         
         # get xgboost prediction based on input dataset and timestamp
-        if model_name == "xgboost" or model_name == "Xgboost":
+        if model_name == "xgboost":
             predictions, evaluation = create_demand.Prediction(df_input, model_name, timestamp, iteration).predict_xgboost()
+            
             return Response({
+                "image": "Go to http://127.0.0.1:8000/plot/ to see the map of NYC",
+                "evaluation": evaluation,
                 "data": predictions.reset_index().values,
-                "evaluation": evaluation
             })
-        else:
+
         # get deep model prediction
+        elif model_name == "deep":
             predictions = create_demand.Prediction(df_input, f'{timestamp}h_{model_name}', timestamp, iteration).forecast_deep()
             return Response({
                 'meta': {
@@ -70,6 +69,8 @@ class UploadViewSet(ViewSet):
                 },
                 'data': predictions
             })
+
+            
 
 
 

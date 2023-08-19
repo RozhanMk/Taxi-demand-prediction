@@ -6,9 +6,3 @@ venv/
 
 # Ignore log files
 *.log
-
-# Ignore csv 
-*.csv
-
-# Ignore parquet
-*.parquet

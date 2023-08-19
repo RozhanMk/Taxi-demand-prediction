@@ -21,7 +21,7 @@ CONFIG = {
     "number_of_zones": 263,
     "target_encoded_zones_dir": "api/utils/mean_demand_per_location.pkl",
     "shapefile_dir": "api/utils/nycZones/taxi_zones.shp",
-    "low_demand_limit": 2,
+    "low_demand_limit": 2, # You can change this based on your interest
     "high_demand_limit": 41,
 
 }
@@ -111,12 +111,12 @@ class Prediction:
         for x, y, label in zip(zones_with_level_df.geometry.centroid.x, zones_with_level_df.geometry.centroid.y, zones_with_level_df['LocationID']):
             ax.text(x, y, label, fontsize=8, ha='center', va='center')
 
-        ax.set_title(f"New York zones based on demand from {df_features.index.min()} to {df_features.index.max()}")
+        ax.set_title(f"NYC zones based on demand prediction from {df_features.index.min()} to {df_features.index.max()}")
         ax.set_axis_off()
         # Create a custom legend
         legend_elements = [Patch(facecolor=color_mapping[level], edgecolor='black', label=level) for level in zones_with_level_df['demand_level'].unique()]
         ax.legend(handles=legend_elements, loc='lower right')
-        plt.savefig('xgboost_demand.png')
+        plt.savefig('static/images/xgboost_demand.png')
 
 
 
@@ -128,7 +128,7 @@ class Prediction:
 
         df_features = pd.merge(real_demand_df, df_features, on="PULocationID")
 
-        df_features['demand_level'] = pd.cut(df_features['demand_prediction'], bins=[0, CONFIG.get("low_demand_limit") + 1, CONFIG.get("high_demand_limit") + 1, float('inf')], labels=["low", "medium" , "high"], right=False)
+        df_features['demand_level'] = pd.cut(df_features['demand_prediction'], bins=[0, CONFIG.get("low_demand_limit") + 1, CONFIG.get("high_demand_limit") + 1, float('inf')], labels=["low", "medium" , "high"])
 
         # use rmse for low demand level
         low_mask = df_features['demand_level'] == 'low'

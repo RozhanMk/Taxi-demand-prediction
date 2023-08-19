@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import UploadViewSet
+from .views import UploadViewSet, PlotAPIView
 
 urlpatterns = [
-    path('predict/', UploadViewSet.as_view({'get': 'list', 'put':'upload'})),
+    path('', UploadViewSet.as_view({'get': 'list', 'post':'upload'})),
+    path('plot/', PlotAPIView.as_view())
 ]
