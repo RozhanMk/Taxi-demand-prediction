@@ -8,6 +8,7 @@ scikit-learn
 matplotlib
 pyyaml
 requests
+pickle
 django-cors-headers
 xgboost
 tensorflow
