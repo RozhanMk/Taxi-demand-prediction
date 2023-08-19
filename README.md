@@ -45,6 +45,8 @@ Before you run this API, you must get your API key from https://www.visualcrossi
 2. Run Django:
 ```
    cd Deploy
+   python3 -m venv venv
+   source venv/bin/activate
    pip install -r requirements.txt
    python manage.py runserver 
 ```
