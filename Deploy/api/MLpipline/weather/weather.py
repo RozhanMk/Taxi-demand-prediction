@@ -1,9 +1,7 @@
 import requests
 import pandas as pd
 import re
-import os
 
-print(os.getcwd())
 class Weather:
     def __init__(self, df_predict):
         self.df_predict = df_predict

@@ -85,9 +85,9 @@ class Prediction:
         return df_features
     
     
-	"""
-	This will seperate low, medium and high demands on New York map. get the shape file from TLC nyc website.
-	"""
+    """
+    This will seperate low, medium and high demands on New York map. get the shape file from TLC nyc website.
+    """
     def plot_prediction(self, df_features):
         zones_df = gpd.read_file(CONFIG.get("shapefile_dir"))
         df_features['demand_level'] = pd.cut(df_features['demand_prediction'], bins=[0, CONFIG.get("low_demand_limit") + 1, CONFIG.get("high_demand_limit") + 1, float('inf')], labels=["low", "medium" , "high"], right=False)
@@ -143,9 +143,9 @@ class Prediction:
 
         return f"rmse: {np.sqrt(mean_squared_error(low_demand_real, low_demand_prediction))}, mape: {mean_absolute_percentage_error(high_demand_real, high_demand_prediction)}"
 
-"""
-forecast demand with deep model.
-"""
+    """
+    forecast demand with deep model.
+    """
     def forecast_deep(self):
         models = self.load_deep_model()
     
@@ -251,10 +251,10 @@ class DemandInputDF:
         self.timestamp = timestamp
         self.df_input = df_input  # df received from user
 
-"""
-calculate demand for each time interval and LocationID based on our definition of demand.
-demand = Passenger count for current time + (dropoff count for last 6 hours in each LocationID - pickup count for last 6 hours in each LocationID)
-"""
+    """
+    calculate demand for each time interval and LocationID based on our definition of demand.
+    demand = Passenger count for current time + (dropoff count for last 6 hours in each LocationID - pickup count for last 6 hours in each LocationID)
+    """
     def demand_calculation(self, x, pickups_6h_df, dropoffs_6h_df):
         passenger_sum = x['passenger_count'].sum()
         demand = passenger_sum + 1
