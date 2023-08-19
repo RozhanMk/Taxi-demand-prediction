@@ -28,7 +28,7 @@ We added these features to the demand dataset:
 | Week day | |
 
 # Base Model
-We transformed a time series problem into a supervised learning problem. So we can use XGBoost.
+We transformed **multiple multivariate time series** problems into a supervised learning problem. So we can use XGBoost.
 ![](https://github.com/RozhanMk/Taxi-demand-prediction/blob/main/images/xgboost.png)
 
 # Final Model
