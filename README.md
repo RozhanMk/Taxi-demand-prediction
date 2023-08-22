@@ -53,8 +53,8 @@ Before you run this API, you must get your API key from https://www.visualcrossi
    python manage.py runserver 
 ```
 # Team Members
-- [Arman Salahshour](https://github.com/Arman-Salahshour?tab=followers)
-- Paniz Baratnejad
-- Anahita Kia
-- Javad Maddah
+- [Arman Salahshour](https://github.com/Arman-Salahshour)
+- [Paniz Baratnejad](https://github.com/panij)
+- [Anahita Kia](https://www.linkedin.com/in/anahita-kia-84245117a?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BidZwh1vKSrG2EU7RWoNXng%3D%3D)
+- [Javad Maddah]()
 - [Rozhan Mirzaei](https://github.com/RozhanMk)
