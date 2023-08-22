@@ -54,7 +54,7 @@ Before you run this API, you must get your API key from https://www.visualcrossi
 ```
 # Team Members
 - [Arman Salahshour](https://github.com/Arman-Salahshour?tab=followers)
-- Paniz Baratnejad
+- [Paniz Baratnejad](https://github.com/panij)
 - Anahita Kia
 - Javad Maddah
 - [Rozhan Mirzaei](https://github.com/RozhanMk)
