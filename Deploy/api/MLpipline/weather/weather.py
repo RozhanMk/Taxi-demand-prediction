@@ -10,7 +10,7 @@ class Weather:
 
     def get_weather_csv(self, needed_datetime):
         # Weather API key
-        key = "5W7MSRTSYLXB2CWPFMC6FL9VV"
+        key = "YOUR API KEY FROM https://www.visualcrossing.com/weather/weather-data-services"
 
         locations = ["manhattan", "brooklyn", "usa queens", "bronx", "staten island", "newark"]
         needed_date = needed_datetime.date()
