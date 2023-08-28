@@ -2,6 +2,7 @@ import pandas as pd
 import geopandas as gpd
 import numpy as np
 from datetime import datetime
+import pathlib
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import FunctionTransformer
@@ -15,15 +16,14 @@ from tensorflow.keras.models import load_model as tf_load_model
 from api.MLpipline.CleanDatasetPackage import data_preprocessing
 
 CONFIG = {
-    "xgboost_model_dir": "api/models/xgboost_model_org_demand_3.sav",
+    "xgboost_model_dir": pathlib.Path("api/models/xgboost_model_org_demand_3.sav"),
     "date_limit": datetime.strptime('2023-04-30 00:00:00', '%Y-%m-%d %H:%M:%S'),
-    "real_demand_dir": "api/MLpipline/evaluate/org_demand_3h.parquet",
+    "real_demand_dir": pathlib.Path("api/MLpipline/evaluate/org_demand_3h.parquet"),
     "number_of_zones": 263,
-    "target_encoded_zones_dir": "api/utils/mean_demand_per_location.pkl",
-    "shapefile_dir": "api/utils/nycZones/taxi_zones.shp",
+    "target_encoded_zones_dir": pathlib.Path("api/utils/mean_demand_per_location.pkl"),
+    "shapefile_dir": pathlib.Path("api/utils/nycZones/taxi_zones.shp"),
     "low_demand_limit": 2, # You can change this based on your interest
     "high_demand_limit": 41,
-
 }
 
 # main class to do prediction by input dataframe
@@ -31,7 +31,7 @@ class Prediction:
     def __init__(self, df_input, name_of_model, timestamp=3, iteration=1):
         self.df_input = df_input
         self.name_of_model = name_of_model
-        self.timestamp = timestamp
+        self.timestamp = int(timestamp)
         self.iteration = int(iteration)
 
     def predict_xgboost(self):
@@ -501,18 +501,16 @@ class PredictionDF:
     def target_encode_puid(self):
         if not self.deep:
             # use encoded pulocationid of train data 
-            relative_path = CONFIG.get("target_encoded_zones_dir")
-            mean_demand_per_location = pd.read_pickle(relative_path)
+            mean_demand_per_location = pd.read_pickle(CONFIG.get("target_encoded_zones_dir"))
             self.df_features['PULocationID'] = self.df_features['PULocationID'].map(mean_demand_per_location)
             self.df_features = self.df_features.set_index("timestamp")
         else:
             # use encoded pulocationid of train data 
 
-            location_features_df = pd.read_parquet("api/utils/locations_latent_features.parquet")
+            location_features_df = pd.read_parquet(pathlib.Path("api/utils/locations_latent_features.parquet"))
             self.df_features = pd.merge(self.df_features, location_features_df, left_on='PULocationID', right_on='PULocationID',)
 
-            relative_path = 'api/utils/mean_demand_per_location.pkl'
-            mean_demand_per_location = pd.read_pickle(relative_path)
+            mean_demand_per_location = pd.read_pickle(CONFIG.get("target_encoded_zones_dir"))
             self.df_features['PULocationID_encoded'] = self.df_features['PULocationID'].map(mean_demand_per_location)
             self.df_features = self.df_features.set_index("timestamp")
 

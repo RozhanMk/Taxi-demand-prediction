@@ -1,6 +1,7 @@
 import requests
 import pandas as pd
 import re
+from pathlib import Path
 
 class Weather:
     def __init__(self, df_predict):
@@ -9,7 +10,7 @@ class Weather:
 
     def get_weather_csv(self, needed_datetime):
         # Weather API key
-        key = "YOUR API KEY FROM https://www.visualcrossing.com/weather/weather-data-services"
+        key = "5W7MSRTSYLXB2CWPFMC6FL9VV"
 
         locations = ["manhattan", "brooklyn", "usa queens", "bronx", "staten island", "newark"]
         needed_date = needed_datetime.date()
@@ -19,7 +20,7 @@ class Weather:
             needed_hour = "0" + needed_hour
 
         # empty the file before opening
-        with open("api/MLpipline/weather/weather_data.csv", 'w', newline='') as file:
+        with open(Path("api/MLpipline/weather/weather_data.csv"), 'w', newline='') as file:
             file.truncate()
 
         for index, location in enumerate(locations):
@@ -28,7 +29,7 @@ class Weather:
 
             if response.status_code == 200:
                 csv_data = response.content.decode("utf-8")  
-                with open("api/MLpipline/weather/weather_data.csv", "a", newline="", encoding="utf-8") as file:
+                with open(Path("api/MLpipline/weather/weather_data.csv"), "a", newline="", encoding="utf-8") as file:
                     if index == 0:
                         file.write(csv_data)
                     else:
@@ -37,7 +38,7 @@ class Weather:
             else:
                 print(response.text)
                 return
-        weather = pd.read_csv("api/MLpipline/weather/weather_data.csv")
+        weather = pd.read_csv(Path("api/MLpipline/weather/weather_data.csv"))
         weather.rename(columns={"name":"Borough", "datetime":"timestamp"}, inplace=True)
         weather["timestamp"] = pd.to_datetime(weather["timestamp"])
 
@@ -64,7 +65,7 @@ class Weather:
     
     def map_zones_to_borough(self):
     	# zones.csv contains borough for each LocationID in nyc. get it from TLC nyc website.
-        zones_df = pd.read_csv("api/MLpipline/weather/zones.csv")
+        zones_df = pd.read_csv(Path("api/MLpipline/weather/zones.csv"))
         pulocationid_to_borough = dict(zip(zones_df.LocationID, zones_df.Borough))
         # create Borough column in dataframe
         self.df_predict['Borough'] = self.df_predict['PULocationID'].map(pulocationid_to_borough)

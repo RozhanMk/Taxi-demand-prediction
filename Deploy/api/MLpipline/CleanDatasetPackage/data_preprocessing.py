@@ -32,12 +32,8 @@ class Preprocessing:
         self.df = Outliers_passengers.isolated_forest_and_quantile(self.df)
 
 
-    def save_dataset(self , path = 'clean_data.parquet'):
-        self.df.to_parquet(path)
 
-if __name__ == "__main__":
-    pre = Preprocessing('/content/rahnema-dataset/')
-    pre.fit_transform()
+
 
 
 
