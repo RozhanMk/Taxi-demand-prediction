@@ -50,7 +50,7 @@ Before you run this API, you must get your API key from https://www.visualcrossi
    python3 -m venv venv
    source venv/bin/activate
    pip install -r requirements.txt
-   python manage.py runserver 
+   python3 manage.py runserver 
 ```
 # Team Members
 - [Arman Salahshour](https://github.com/Arman-Salahshour?tab=followers)
